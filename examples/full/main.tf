@@ -125,7 +125,7 @@ module "private_dns_resolver" {
                 port       = 53
                 }, {
                 ip_address = "10.0.0.2"
-                port       = 5353
+                port       = 53
               }]
             }
           }
