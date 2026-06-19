@@ -1,6 +1,6 @@
 locals {
   forwarding_ruleset = merge([
-    for key, value in var.outbound_endpoint : (
+    for key, value in(var.outbound_endpoint == null ? {} : var.outbound_endpoint) : (
       value.forwarding_ruleset != null ? {
         for ruleset_key, ruleset_value in value.forwarding_ruleset :
         "${key}_${ruleset_key}" => {
@@ -9,7 +9,7 @@ locals {
           rule                 = ruleset_value.rule
           virtual_network_link = ruleset_value.virtual_network_link
         }
-      } : null
+      } : {}
     )
   ]...)
 
@@ -24,7 +24,7 @@ locals {
           metadata           = rule_value.metadata
           target_dns_servers = rule_value.target_dns_servers
         }
-      } : null
+      } : {}
     )
   ]...)
 
@@ -37,7 +37,7 @@ locals {
           virtual_network_id = link_value.virtual_network_id
           metadata           = link_value.metadata
         }
-      } : null
+      } : {}
     )
   ]...)
 }
